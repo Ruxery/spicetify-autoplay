@@ -6,6 +6,7 @@ Toggable in the Settings on the top right.
 <br>
 
 After Opening Spotify:
+
 ![docs/open-spotify.png](docs/open-spotify.png "After Opening Spotify")
 
 <hr>
