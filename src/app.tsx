@@ -11,7 +11,7 @@ export default function AutoPlayOnStartup() {
   const activeKey = "Extention:AutoPlay_On_Startup:active"
   var active: boolean = JSON.parse(Spicetify.LocalStorage.get(activeKey) as string) ?? true
   const showMessageKey = "Extention:AutoPlay_On_Startup:showMessage"
-  var showMessage: boolean = JSON.parse(Spicetify.LocalStorage.get(showMessageKey) as string) ?? false
+  var showMessage: boolean = JSON.parse(Spicetify.LocalStorage.get(showMessageKey) as string) ?? true
   registerMenu()
   main()
 
@@ -26,11 +26,11 @@ export default function AutoPlayOnStartup() {
   function play() {
     if(active) {
       if(Spicetify.Player.isPlaying()) {
-        notification("Song is already played")
+        notification("Song is already playing")
         return
       }
       Spicetify.Player.play()
-      notification("Last played song")
+      notification("Playing Last played song")
     } else {
       notification("deactivated")
     }
