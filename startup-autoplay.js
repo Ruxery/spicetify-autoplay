@@ -9,7 +9,7 @@ var startupDautoplay = (() => {
     const activeKey = "Extention:AutoPlay_On_Startup:active";
     var active = (_a = JSON.parse(Spicetify.LocalStorage.get(activeKey))) != null ? _a : true;
     const showMessageKey = "Extention:AutoPlay_On_Startup:showMessage";
-    var showMessage = (_b = JSON.parse(Spicetify.LocalStorage.get(showMessageKey))) != null ? _b : false;
+    var showMessage = (_b = JSON.parse(Spicetify.LocalStorage.get(showMessageKey))) != null ? _b : true;
     registerMenu();
     main();
     function main() {
@@ -22,11 +22,11 @@ var startupDautoplay = (() => {
     function play() {
       if (active) {
         if (Spicetify.Player.isPlaying()) {
-          notification("Song is already played");
+          notification("Song is already playing");
           return;
         }
         Spicetify.Player.play();
-        notification("Last played song");
+        notification("Playing Last played song");
       } else {
         notification("deactivated");
       }

@@ -1,0 +1,9 @@
+{
+    "name": "Startup Autoplay",
+    "description": "Directly play the last played song after you open Spotify. Toggable in the Settings on the top right.",
+    "preview": "docs/open-spotify.png",
+    "main": "startup-autoplay.js",
+    "readme": "README.md",
+    "authors": [{ "name": "Ruxery", "url": "https://github.com/Ruxery" }],
+    "branch": "dist"
+}
