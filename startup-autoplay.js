@@ -6,6 +6,7 @@ var startupDautoplay = (() => {
       setTimeout(AutoPlayOnStartup, 250);
       return;
     }
+    const name = "Autoplay: ";
     const activeKey = "Extention:AutoPlay_On_Startup:active";
     var active = (_a = JSON.parse(Spicetify.LocalStorage.get(activeKey))) != null ? _a : true;
     const showMessageKey = "Extention:AutoPlay_On_Startup:showMessage";
@@ -21,19 +22,25 @@ var startupDautoplay = (() => {
     }
     function play() {
       if (active) {
-        if (Spicetify.Player.isPlaying()) {
-          notification("Song is already playing");
-          return;
+        try {
+          if (Spicetify.Player.isPlaying()) {
+            notification("Song is already playing");
+            return;
+          }
+          Spicetify.Player.play();
+          notification("Playing Last played song");
+        } catch (error) {
+          notification("" + error, true);
+          console.error(name, error);
+          setTimeout(play, 100);
         }
-        Spicetify.Player.play();
-        notification("Playing Last played song");
       } else {
         notification("deactivated");
       }
     }
-    function notification(text) {
+    function notification(text, isError) {
       if (showMessage)
-        Spicetify.showNotification("Autoplay:  " + text);
+        Spicetify.showNotification(name + text, isError);
     }
     function registerMenu() {
       const activeMenu = new Spicetify.Menu.Item(
