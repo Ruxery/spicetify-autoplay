@@ -3,7 +3,7 @@
 // DESCRIPTION: Directly play the last played song after you open Spotify. Toggable in the Settings on the top right.
 
 export default function AutoPlayOnStartup() {
-  if (!Spicetify?.LocalStorage || !Spicetify.Menu) {
+  if (!(!!Spicetify.LocalStorage && !!Spicetify.Menu)) {
     setTimeout(AutoPlayOnStartup, 250)
     return
   }
@@ -17,7 +17,7 @@ export default function AutoPlayOnStartup() {
   main()
 
   function main() {
-    if (!Spicetify.Player || !Spicetify.showNotification) {
+    if (!(!!Spicetify.Player && !!Spicetify.showNotification)) {
       setTimeout(main, 250)
       return
     }
@@ -34,9 +34,9 @@ export default function AutoPlayOnStartup() {
         Spicetify.Player.play()
         notification("Playing Last played song")
       } catch (error) {
-        notification("" + error, true)
+        notification(name + error, true)
         console.error(name, error)
-        setTimeout(play, 100)
+        setTimeout(play, 250)
       }
     } else {
       notification("deactivated")
@@ -44,8 +44,9 @@ export default function AutoPlayOnStartup() {
   }
 
   function notification(text: string, isError?: boolean) {
-    if(showMessage)
-      Spicetify.showNotification(name + text, isError)
+    if(!showMessage)
+      return
+    Spicetify.showNotification(name + text, isError)
   }
 
   function registerMenu() {
@@ -55,7 +56,6 @@ export default function AutoPlayOnStartup() {
       (menu: Spicetify.Menu.Item) => {
         active = !active
         menu.setState(active)
-        localStorage.setItem(activeKey, JSON.stringify(active))
         Spicetify.LocalStorage.set(activeKey, JSON.stringify(active))
       }
     )
