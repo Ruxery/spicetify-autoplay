@@ -2,7 +2,7 @@ var startupDautoplay = (() => {
   // src/app.tsx
   function AutoPlayOnStartup() {
     var _a, _b;
-    if (!(Spicetify == null ? void 0 : Spicetify.LocalStorage) || !Spicetify.Menu) {
+    if (!(!!Spicetify.LocalStorage && !!Spicetify.Menu)) {
       setTimeout(AutoPlayOnStartup, 250);
       return;
     }
@@ -14,7 +14,7 @@ var startupDautoplay = (() => {
     registerMenu();
     main();
     function main() {
-      if (!Spicetify.Player || !Spicetify.showNotification) {
+      if (!(!!Spicetify.Player && !!Spicetify.showNotification)) {
         setTimeout(main, 250);
         return;
       }
@@ -30,17 +30,18 @@ var startupDautoplay = (() => {
           Spicetify.Player.play();
           notification("Playing Last played song");
         } catch (error) {
-          notification("" + error, true);
+          notification(name + error, true);
           console.error(name, error);
-          setTimeout(play, 100);
+          setTimeout(play, 250);
         }
       } else {
         notification("deactivated");
       }
     }
     function notification(text, isError) {
-      if (showMessage)
-        Spicetify.showNotification(name + text, isError);
+      if (!showMessage)
+        return;
+      Spicetify.showNotification(name + text, isError);
     }
     function registerMenu() {
       const activeMenu = new Spicetify.Menu.Item(
@@ -49,7 +50,6 @@ var startupDautoplay = (() => {
         (menu) => {
           active = !active;
           menu.setState(active);
-          localStorage.setItem(activeKey, JSON.stringify(active));
           Spicetify.LocalStorage.set(activeKey, JSON.stringify(active));
         }
       );
