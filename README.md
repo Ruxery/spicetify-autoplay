@@ -1,5 +1,5 @@
 # Startup Autoplay
-Directly play the last played song after you open Spotify.
+Automatically plays the last played song when you open Spotify.
 
 Toggable in the Settings on the top right.
 
@@ -39,7 +39,7 @@ spicetify apply
 If you find any bugs, please [create a new issue](https://github.com/Ruxery/spicetify-startup-autoplay/issues/new/choose) on the GitHub repo.    
 ![https://github.com/Ruxery/spicetify-startup-autoplay/issues](https://img.shields.io/github/issues/Ruxery/spicetify-startup-autoplay?logo=github)
 
-Or look at the [Code](https://github.com/Ruxery/spicetify-startup-autoplay/tree/dev) 
+Or look at the [Code](https://github.com/Ruxery/spicetify-startup-autoplay/tree/dev) and fix it.
 
 <hr>
 
