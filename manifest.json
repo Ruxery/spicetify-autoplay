@@ -1,7 +1,7 @@
 [
     {
         "name": "Startup Autoplay",
-        "description": "Directly play the last played song after you open Spotify. Toggable in the Settings on the top right.",
+        "description": "Automatically plays the last played song when you open Spotify.",
         "preview": "docs/open-spotify.png",
         "main": "startup-autoplay.js",
         "readme": "README.md",
