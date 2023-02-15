@@ -1,6 +1,6 @@
 {
-  "name": "startup-autoplay",
-  "version": "1.0.2",
+  "name": "autoplay",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "build": "spicetify-creator",

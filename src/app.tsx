@@ -1,24 +1,23 @@
-// NAME: Startup Autoplay
+// NAME: Autoplay
 // AUTHOR: Ruxery (https://github.com/Ruxery/)
-// DESCRIPTION: Directly play the last played song after you open Spotify. Toggable in the Settings on the top right.
+// DESCRIPTION: Automatically plays the last played song when you open Spotify.
 
-export default function AutoPlayOnStartup() {
+export default async function AutoPlay() {
   if (!(!!Spicetify.LocalStorage && !!Spicetify.Menu)) {
-    setTimeout(AutoPlayOnStartup, 250)
+    setTimeout(AutoPlay, 100)
     return
   }
-  
   const name = "Autoplay: "
-  const activeKey = "Extention:AutoPlay_On_Startup:active"
+  const activeKey = "Extention:AutoPlay:active"
   var active: boolean = JSON.parse(Spicetify.LocalStorage.get(activeKey) as string) ?? true
-  const showMessageKey = "Extention:AutoPlay_On_Startup:showMessage"
+  const showMessageKey = "Extention:AutoPlay:showMessage"
   var showMessage: boolean = JSON.parse(Spicetify.LocalStorage.get(showMessageKey) as string) ?? true
   registerMenu()
   main()
 
   function main() {
     if (!(!!Spicetify.Player && !!Spicetify.showNotification)) {
-      setTimeout(main, 250)
+      setTimeout(main, 100)
       return
     }
     play()
@@ -34,7 +33,7 @@ export default function AutoPlayOnStartup() {
         Spicetify.Player.play()
         notification("Playing Last played song")
       } catch (error) {
-        notification(name + error, true)
+        notification("" + error, true)
         console.error(name, error)
         setTimeout(play, 250)
       }
@@ -46,7 +45,15 @@ export default function AutoPlayOnStartup() {
   function notification(text: string, isError?: boolean) {
     if(!showMessage)
       return
-    Spicetify.showNotification(name + text, isError)
+    let time = 0
+    for (let index = 0; index < 3; index++) {
+      console.log(time)
+      setTimeout(() => {
+        Spicetify.showNotification(name + text, isError)  
+        console.warn(name + text)
+      }, time);
+      time += 2500
+    }
   }
 
   function registerMenu() {
@@ -68,6 +75,6 @@ export default function AutoPlayOnStartup() {
         Spicetify.LocalStorage.set(showMessageKey, JSON.stringify(showMessage))
       }
     )
-    new Spicetify.Menu.SubMenu("Startup Autoplay", [activeMenu, messageMenu]).register();
+    new Spicetify.Menu.SubMenu("Autoplay", [activeMenu, messageMenu]).register();
   }
 }
