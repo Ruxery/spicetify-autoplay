@@ -1,9 +1,9 @@
 [
     {
-        "name": "Startup Autoplay",
+        "name": "Autoplay",
         "description": "Automatically plays the last played song when you open Spotify.",
         "preview": "docs/open-spotify.png",
-        "main": "startup-autoplay.js",
+        "main": "autoplay.js",
         "readme": "README.md",
         "authors": [{ "name": "Ruxery", "url": "https://github.com/Ruxery" }],
         "branch": "dist"
